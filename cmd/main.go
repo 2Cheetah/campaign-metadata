@@ -1,7 +1,14 @@
 package main
 
-import "log"
+import (
+	"context"
+
+	"github.com/2Cheetah/campaign-metadata/internal/app"
+	_ "github.com/joho/godotenv/autoload"
+)
 
 func main() {
-	log.Println("here we go again")
+	ctx := context.Background()
+	app := app.NewApp(ctx)
+	app.MustRun()
 }

@@ -1,0 +1,4 @@
+services:
+  campaign-metadata:
+    volumes:
+      - ./web:/web

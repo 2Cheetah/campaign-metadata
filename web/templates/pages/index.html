@@ -1,0 +1,23 @@
+{{define "index"}}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Go HTMX Example</title>
+        <script src="/static/js/htmx.min.js"></script>
+    </head>
+    <body>
+        <h1>My Item List</h1>
+        <!-- The target for HTMX swaps -->
+        <div id="item-list">
+            <!-- Renders the initial items using the "items" template partial -->
+            {{template "items" .Items}}
+        </div>
+
+        <!-- The button that triggers the HTMX request -->
+        <button hx-get="/items" hx-target="#item-list" hx-swap="beforeend">
+            Load More Items
+        </button>
+    </body>
+</html>
+{{end}}

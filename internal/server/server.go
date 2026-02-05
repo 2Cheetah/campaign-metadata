@@ -2,6 +2,7 @@ package server
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/2Cheetah/campaign-metadata/internal/service"
 )
@@ -23,6 +24,12 @@ func NewServer(service *service.Service) *Server {
 }
 
 func (s *Server) RegisterHandlers() {
+	// Serve static files
+	fsys := os.DirFS("web/static")
+	fs := http.FileServerFS(fsys)
+	s.Mux.Handle("GET /static/", http.StripPrefix("/static/", fs))
+
 	s.Mux.HandleFunc("GET /ping", s.PingHandler)
 	s.Mux.HandleFunc("GET /campaigns/{id}/tags", s.GetCampaignTagsHanlder)
+	s.Mux.HandleFunc("GET /index", s.IndexHandler)
 }
